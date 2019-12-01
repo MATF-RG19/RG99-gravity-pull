@@ -1,10 +1,11 @@
-PROGRAM   = GravityPull
-CC        = gcc
-CFLAGS    = -g -Wall
-LDFLAGS   = -lGL -lGLU -lglut
+PROGRAM = GravityPull
+CC      = gcc
+CFLAGS  = -g -Wall -I/usr/X11R6/include -I/usr/pkg/include
+LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib ./../libraries/onKeyboard.h ./../libraries/onTimer.h ./../libraries/header.h 
+LDLIBS  = -lglut -lGLU -lGL -lm
 
 $(PROGRAM): main.o
-	$(CC) -o $(PROGRAM) main.o $(LDFLAGS)
+	$(CC) $(LDFLAGS) -o $(PROGRAM) main.o $(LDLIBS)
 
 .PHONY: clean dist
 
@@ -13,5 +14,3 @@ clean:
 
 dist: clean
 	-tar -chvj -C .. -f ../$(PROGRAM).tar.bz2 $(PROGRAM)
-
-
