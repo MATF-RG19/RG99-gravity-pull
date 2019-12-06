@@ -16,11 +16,16 @@ typedef struct MOVE{
 
 move vec;
 float x_pos=0, y_pos=0;
+float y_pom_filed = 0;
 
 static void on_timer(int value);
 
 static void onKeyboardMove(unsigned char key, int x, int y);
 static void onKeyboardMoveUp(unsigned char key,int x,int y);
+static void drawCaracter(void);
+static void drawArena(int k);
+static void drawBlockArena(void);
+
 
 
 #endif

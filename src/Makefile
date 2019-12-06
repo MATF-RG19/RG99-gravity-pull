@@ -1,7 +1,7 @@
 PROGRAM = GravityPull
 CC      = gcc
 CFLAGS  = -g -Wall -I/usr/X11R6/include -I/usr/pkg/include
-LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib ./../libraries/onKeyboard.h ./../libraries/onTimer.h ./../libraries/header.h 
+LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib ./../libraries/onKeyboard.h ./../libraries/onTimer.h ./../libraries/header.h ./../libraries/onDisplay.h
 LDLIBS  = -lglut -lGLU -lGL -lm
 
 $(PROGRAM): main.o
