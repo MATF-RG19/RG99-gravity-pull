@@ -8,21 +8,15 @@
 #include "./../libraries/onDisplay.h"
 
 
-static int window_width, window_height;
+extern int window_width, window_height;
 static void on_reshape(int width, int height);
 
 int main(int argc, char **argv)
-{
-
-	x_pos=0;
-	y_pos=0;
-	vec.x=0;
-	vec.y=0;
-
+{   
     glutInit(&argc, argv);
     glutInitDisplayMode(GLUT_RGB | GLUT_DEPTH | GLUT_DOUBLE);
 
-    glutInitWindowSize(600, 600);
+    glutInitWindowSize(1400, 800);
     glutInitWindowPosition(100, 100);
     glutCreateWindow(argv[0]);
     
@@ -35,6 +29,8 @@ int main(int argc, char **argv)
     glClearColor(0, 0, 0, 0);
     glEnable(GL_DEPTH_TEST);
     glLineWidth(2);
+
+    initialize();
 
     glutMainLoop();
 

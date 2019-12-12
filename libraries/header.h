@@ -14,18 +14,9 @@ typedef struct MOVE{
     double y;
 }move;
 
-move vec;
-float x_pos=0, y_pos=0;
-float y_pom_filed = 0;
+extern move vec;
+extern float x_pos, y_pos;
+extern float y_pom_filed;
 
-static void on_timer(int value);
-
-static void onKeyboardMove(unsigned char key, int x, int y);
-static void onKeyboardMoveUp(unsigned char key,int x,int y);
-static void drawCaracter(void);
-static void drawArena(int k);
-static void drawBlockArena(void);
-
-
-
+void initialize (void);
 #endif
