@@ -14,9 +14,26 @@ typedef struct MOVE{
     double y;
 }move;
 
+typedef struct positionOfCharacter{
+    double YGornjaKoordinata;
+    double YDonjaKoordinata;
+    double XKoordinataLeveNoge;
+    double XKoordinataDesneNoge;
+}positionOfCharacter;
+
+typedef struct positionOfPlatform{
+    double YGornjeStrane;
+    double YDonjeStrane;
+    double XLeveIvice;
+    double XdesneIvice;
+}positionOfPlatform;
+
+extern positionOfCharacter pos;
 extern move vec;
 extern float x_pos, y_pos;
 extern float y_pom_filed;
+extern int gameActive;
+extern int gameOver;
 
 void initialize (void);
 #endif

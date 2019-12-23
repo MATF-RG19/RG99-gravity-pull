@@ -7,7 +7,6 @@
 #include <math.h>
 #include "header.h"
 
-
 extern int window_width, window_height;
 
 void on_display(void);

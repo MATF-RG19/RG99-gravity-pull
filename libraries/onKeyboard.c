@@ -5,12 +5,25 @@
 
 #include "onKeyboard.h"
 #include "header.h"
+#include "onTimer.h"
 
 void onKeyboardMove(unsigned char key, int x, int y){
 	
     switch (key) {
         case 27:
             exit(0);
+            break;
+        case 'g':
+        case 'G':
+        if(!gameActive){
+            gameActive = 1;
+            glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
+        }
+            break;
+
+        case 'p':
+        case 'P':
+            gameActive = 0;
             break;
 
         case 'w':

@@ -6,7 +6,7 @@
 #include "onDisplay.h"
 
 int window_width, window_height;
-
+positionOfCharacter pos;
 void on_display(void)
 {
 
@@ -31,45 +31,68 @@ void on_display(void)
             1, 1, 1,
             0, 1, 0
         );
+
+    GLdouble ClipPlaneLeft [] = {1,0,0,2};
+    //Ako treba ubaci cu jos jednu ravan ali za  sada nije potrebana
+
     drawPyramidBlockTop();
     //drawPyramidBlockDown();
-    glTranslatef(0,y_pom_filed, 0);
-    drawBlockArena();
+    glPushMatrix();
+        glTranslatef(0,y_pom_filed, 0);
+
+        glEnable (GL_CLIP_PLANE0);
+        glEnable (GL_CLIP_PLANE1);
+        glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
+
+        drawBlockArena();
+        glDisable(GL_CLIP_PLANE0);
+        glDisable(GL_CLIP_PLANE1);
+    glPopMatrix();
+    
     drawCaracter();
     glutPostRedisplay();
     glutSwapBuffers();
 }
-
+//Crtanje karaktera i inicializacija negovih pozicija
 void drawCaracter(void){
+    pos.YGornjaKoordinata = 0.3;
+    pos.YDonjaKoordinata = -0.425;
     glColor3f(0.2, 0.2, 1);
     glTranslatef(x_pos,y_pos, 0);
+
+    //Iscrtavanje Tela
     glPushMatrix();
+        glTranslatef(0,-0.05,0);
         glScalef(1,1.5,1);
         glutSolidCube(0.2);
     glPopMatrix();
-//    glScalef(1,1/1.5,1);
+
+    //Iscrtavanje glave;
     glPushMatrix();
-        glTranslatef(0,0.22,0);
         glColor3f(0.2,0.8,0.5);
-        glutSolidSphere(0.075,10, 10);
-        glScalef(0.5,2.75,0.5);
-        glTranslatef(-0.07,-0.15,0.1);
-        glColor3f(0.6,0.7,0.8);
-        glutSolidCube(0.1);
-    glPopMatrix();
-    
-    glPushMatrix();
-        glTranslatef(0,0.22,0);
-        glColor3f(0.2,0.8,0.5);
-        glScalef(0.5,2.75,0.5);
-        glTranslatef(0.13,-0.15,0.1);
-        glColor3f(0.6,0.7,0.8);
-        glutSolidCube(0.1);
+        glTranslatef(0,0.15,0);
+        glutSolidSphere(0.075,10,10);
     glPopMatrix();
 
+    //Iscrtavanje nogu
+    glPushMatrix();
+        glColor3f(0.6,0.7,0.8);
+        glTranslatef(0.055,-0.2875,0);
+        glScalef(0.181818,1,0.181818);
+        glutSolidCube(0.275);
+    glPopMatrix();
+        
+    glPushMatrix();
+        glColor3f(0.6,0.7,0.8);
+        glTranslatef(-0.055,-0.2875,0);
+        glScalef(0.181818,1,0.181818);
+        glutSolidCube(0.275);
+    glPopMatrix();
+    
+    //Iscrtavanje ruku
     glPushMatrix();
         glColor3f(0.9,0.6,0.7);
-        glTranslatef(0.1,0,0);
+        glTranslatef(0.1,-0.05,0);
         glScalef(0.5,2,1);
         glRotatef(45,0,1,0);
         glutSolidCube(0.1);
@@ -77,7 +100,7 @@ void drawCaracter(void){
     
     glPushMatrix();
         glColor3f(0.9,0.6,0.7);
-        glTranslatef(-0.1,0,0);
+        glTranslatef(-0.1,-0.05,0);
         glScalef(0.5,2,1);
         glRotatef(45,0,1,0);
         glutSolidCube(0.1);
