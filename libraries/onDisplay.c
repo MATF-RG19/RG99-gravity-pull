@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <GL/glut.h>
+#include <time.h>
 #include <math.h>
 #include "header.h"
 #include "onDisplay.h"
@@ -48,7 +49,7 @@ void on_display(void)
         glDisable(GL_CLIP_PLANE0);
         glDisable(GL_CLIP_PLANE1);
     glPopMatrix();
-    
+
     drawCaracter();
     glutPostRedisplay();
     glutSwapBuffers();
@@ -57,6 +58,8 @@ void on_display(void)
 void drawCaracter(void){
     pos.YGornjaKoordinata = 0.3;
     pos.YDonjaKoordinata = -0.425;
+    pos.XKoordinataLeveNoge = -0.08;
+    pos.XKoordinataDesneNoge = 0.03;
     glColor3f(0.2, 0.2, 1);
     glTranslatef(x_pos,y_pos, 0);
 
@@ -77,7 +80,7 @@ void drawCaracter(void){
     //Iscrtavanje nogu
     glPushMatrix();
         glColor3f(0.6,0.7,0.8);
-        glTranslatef(0.055,-0.2875,0);
+        glTranslatef(0.075,-0.2875,0);
         glScalef(0.181818,1,0.181818);
         glutSolidCube(0.275);
     glPopMatrix();
@@ -107,8 +110,18 @@ void drawCaracter(void){
     glPopMatrix();
 }
 
+int randomNumber(void){
+    int x = 1;
+    int y = 10;
+
+    srand(time(0));
+
+    return rand()%(y-x+1) + x;
+}
+
 void drawBlockArena(void){
     int k = 0;
+    printf("%d \n",randomNumber());
     for(int i=0; i<100; i++){
         drawArena(k);
         k=k+2;

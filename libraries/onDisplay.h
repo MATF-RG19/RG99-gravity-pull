@@ -11,12 +11,15 @@ extern int window_width, window_height;
 
 void on_display(void);
 void drawCaracter(void);
+
 void drawBlockArena(void);
 void drawArena(int k);
+
 void pyramid(void);
 void drawPyramid(int ind);
 void drawPyramidBlockTop(void);
 void pyramidR(void);
 void drawPyramidBlockDown (void);
+int randomNumber(void);
 
 #endif
