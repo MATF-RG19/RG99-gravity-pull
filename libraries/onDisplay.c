@@ -33,7 +33,8 @@ void on_display(void)
             0, 1, 0
         );
 
-    GLdouble ClipPlaneLeft [] = {1,0,0,2};
+    GLdouble ClipPlaneLeft [] = {1,0,0,2.5};
+    GLdouble ClipPlaneRigh [] = {-1,0,0,4.5};
     //Ako treba ubaci cu jos jednu ravan ali za  sada nije potrebana
 
     drawPyramidBlockTop();
@@ -44,12 +45,14 @@ void on_display(void)
         glEnable (GL_CLIP_PLANE0);
         glEnable (GL_CLIP_PLANE1);
         glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
+        glClipPlane(GL_CLIP_PLANE1, ClipPlaneRigh);
 
-        drawBlockArena();
+        drawFivePlatforms();
+
         glDisable(GL_CLIP_PLANE0);
         glDisable(GL_CLIP_PLANE1);
     glPopMatrix();
-
+    
     drawCaracter();
     glutPostRedisplay();
     glutSwapBuffers();
@@ -109,7 +112,8 @@ void drawCaracter(void){
         glutSolidCube(0.1);
     glPopMatrix();
 }
-
+//************************************************************************************************************
+//Ovaj deo koda se ne koristi vise bice obrisan u poslednjem komitu
 int randomNumber(void){
     int x = 1;
     int y = 10;
@@ -122,12 +126,84 @@ int randomNumber(void){
 void drawBlockArena(void){
     int k = 0;
     printf("%d \n",randomNumber());
-    for(int i=0; i<100; i++){
+    for(int i=0; i<10; i++){
         drawArena(k);
         k=k+2;
     }
 }
+//************************************************************************************************************
+void drawFivePlatforms(void){
 
+    glColor3f(1,1,1);
+    //Prvi red platformi
+    glPushMatrix();
+        glTranslatef(-2.5,0,0);
+        glScalef(scale[0],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(4.5,0,0);
+        glScalef(scale[1],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    platformPos[0].XLeveIvice = 4.5;
+    platformPos[0].XdesneIvice = 4.5;
+    //Drugi red Platformi
+    glPushMatrix();
+        glTranslatef(-2.5,-2,0);
+        glScalef(scale[2],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(4.5,-2,0);
+        glScalef(scale[3],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+
+    //Treci red Platformi
+    glPushMatrix();
+        glTranslatef(-2.5,-4,0);
+        glScalef(scale[4],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(4.5,-4,0);
+        glScalef(scale[5],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+
+    //Cetvrti red platformi
+    glPushMatrix();
+        glTranslatef(-2.5,-6,0);
+        glScalef(scale[6],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(4.5,-6,0);
+        glScalef(scale[7],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+
+    //Peti red paltformi
+    glPushMatrix();
+        glTranslatef(-2.5,-8,0);
+        glScalef(scale[8],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+    
+    glPushMatrix();
+        glTranslatef(4.5,-8,0);
+        glScalef(scale[9],0.5,1.5);
+        glutSolidCube(0.5);
+    glPopMatrix();
+}
+
+//************************************************************************************************************
+//Ovaj deo koda se vise ne koristi bice obrisan ako ne bude trebao u poslednjem komitu
 void drawArena(int k){
     glColor3f(0.5,0.5,0.5);
     glPushMatrix();
@@ -142,6 +218,7 @@ void drawArena(int k){
         glutSolidCube(0.5);
     glPopMatrix();
 }
+// ************************************************************************************************************
 
 //Ne koristi se bas ali neka stoji mozda bude zatreabalo
 void pyramid(void)

@@ -29,6 +29,8 @@ typedef struct positionOfPlatform{
 }positionOfPlatform;
 
 extern positionOfCharacter pos;
+extern positionOfPlatform *platformPos;
+extern int scale [10];
 extern move vec;
 extern float x_pos, y_pos;
 extern float y_pom_filed;
