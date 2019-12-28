@@ -4,5 +4,6 @@
 #include "header.h"
 
 void on_timer (int value);
+void onPlatformCheck(void);
 
 #endif

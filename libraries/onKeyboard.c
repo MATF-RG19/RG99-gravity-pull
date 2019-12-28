@@ -27,7 +27,9 @@ void onKeyboardMove(unsigned char key, int x, int y){
             break;
 
         case 'w':
+        if(onPlatform){
             vec.y=3;
+        }
             break;
 
         case 's':

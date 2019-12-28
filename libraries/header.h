@@ -7,7 +7,7 @@
 #include <GL/glut.h>
 
 #define TIMER_ID 0
-#define TIMER_INTERVAL 10
+#define TIMER_INTERVAL 5
 
 typedef struct MOVE{
     double x;
@@ -37,6 +37,7 @@ extern float y_pom_filed;
 extern int gameActive;
 extern int gameOver;
 extern double translate[5];
+extern int onPlatform;
 void initialize (void);
 void initPosition(int i, int nivo);
 #endif

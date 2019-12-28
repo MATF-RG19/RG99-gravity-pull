@@ -11,6 +11,7 @@ positionOfPlatform *platformPos;
 int scale [10];
 int translateIndicator [5];
 double translate[5];
+int onPlatform;
 
 void initPosition(int i, int nivo){
     double yBase = nivo *2;
@@ -41,6 +42,7 @@ void initialize (void){
     gameActive = 0;
     gameOver = 0;
     int k =0;
+    onPlatform=0;
     for(int i = 0; i<5; i++){
         translate[i]=k;
         k+=2;
