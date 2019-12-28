@@ -22,5 +22,6 @@ void pyramidR(void);
 void drawPyramidBlockDown (void);
 int randomNumber(void);
 void drawFivePlatforms(void);
+void printMirko (void);
 
 #endif

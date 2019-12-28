@@ -36,6 +36,7 @@ extern float x_pos, y_pos;
 extern float y_pom_filed;
 extern int gameActive;
 extern int gameOver;
-
+extern double translate[5];
 void initialize (void);
+void initPosition(int i, int nivo);
 #endif

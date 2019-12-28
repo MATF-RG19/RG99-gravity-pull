@@ -40,8 +40,6 @@ void on_display(void)
     drawPyramidBlockTop();
     //drawPyramidBlockDown();
     glPushMatrix();
-        glTranslatef(0,y_pom_filed, 0);
-
         glEnable (GL_CLIP_PLANE0);
         glEnable (GL_CLIP_PLANE1);
         glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
@@ -137,69 +135,69 @@ void drawFivePlatforms(void){
     glColor3f(1,1,1);
     //Prvi red platformi
     glPushMatrix();
-        glTranslatef(-2.5,0,0);
+        glTranslatef(-2.5,-translate[0],0);
         glScalef(scale[0],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
     
     glPushMatrix();
-        glTranslatef(4.5,0,0);
+        glTranslatef(4.5,-translate[0],0);
         glScalef(scale[1],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-    platformPos[0].XLeveIvice = 4.5;
-    platformPos[0].XdesneIvice = 4.5;
+    
     //Drugi red Platformi
     glPushMatrix();
-        glTranslatef(-2.5,-2,0);
+        glTranslatef(-2.5,-translate[1],0);
         glScalef(scale[2],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-    
+
     glPushMatrix();
-        glTranslatef(4.5,-2,0);
+        glTranslatef(4.5,-translate[1],0);
         glScalef(scale[3],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
 
     //Treci red Platformi
     glPushMatrix();
-        glTranslatef(-2.5,-4,0);
+        glTranslatef(-2.5,-translate[2],0);
         glScalef(scale[4],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-    
+
     glPushMatrix();
-        glTranslatef(4.5,-4,0);
+        glTranslatef(4.5,-translate[2],0);
         glScalef(scale[5],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
 
     //Cetvrti red platformi
     glPushMatrix();
-        glTranslatef(-2.5,-6,0);
+        glTranslatef(-2.5,-translate[3],0);
         glScalef(scale[6],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-    
+
     glPushMatrix();
-        glTranslatef(4.5,-6,0);
+        glTranslatef(4.5,-translate[3],0);
         glScalef(scale[7],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
 
     //Peti red paltformi
     glPushMatrix();
-        glTranslatef(-2.5,-8,0);
+        glTranslatef(-2.5,-translate[4],0);
         glScalef(scale[8],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-    
+
     glPushMatrix();
-        glTranslatef(4.5,-8,0);
+        glTranslatef(4.5,-translate[4],0);
         glScalef(scale[9],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
+
 }
 
 //************************************************************************************************************
@@ -336,3 +334,17 @@ void drawPyramidBlockDown(void){
 }
 
 
+void printMirko(void){
+    printf("Skaliranja za platforme: \n");
+    for(int i=0; i<10;  i++){
+        printf("Skaliranje za parametar: %d\n", scale[i]);
+    }
+    
+    printf("Pozicije platformi: \n");
+    for(int j=0; j<10; j++){
+        printf("Pozicija x leve ivice: %f\n",platformPos[j].XLeveIvice);
+        printf("Pozicija x desne ivice: %f\n",platformPos[j].XdesneIvice);
+        printf("Pozicija y gornje ivice: %f\n",platformPos[j].YGornjeStrane);
+        printf("Pozicija y donje ivice: %f\n",platformPos[j].YDonjeStrane);
+    }
+}
