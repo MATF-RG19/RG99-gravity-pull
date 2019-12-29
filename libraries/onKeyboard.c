@@ -17,6 +17,7 @@ void onKeyboardMove(unsigned char key, int x, int y){
         case 'G':
         if(!gameActive){
             gameActive = 1;
+            gameAcrivatedFirstTime = 1;
             glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
         }
             break;
@@ -25,10 +26,15 @@ void onKeyboardMove(unsigned char key, int x, int y){
         case 'P':
             gameActive = 0;
             break;
+        case 'r':
+        case 'R':
+            initialize();
+            break;
 
         case 'w':
         if(onPlatform){
-            vec.y=3;
+            vec.y=4;
+            onPlatform = 0;
         }
             break;
 

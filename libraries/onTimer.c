@@ -27,12 +27,12 @@ void on_timer (int value){
         if (onPlatform && vecyCopy==3)
             vec.y+=3;
 
-        x_pos +=vec.x*0.05;
-        y_pos +=vec.y*0.01;
+        x_pos +=vec.x*0.04;
+        y_pos +=vec.y*(0.01+speedUpFactor);
 
         //Pomeranje platformi
         for (int i =0; i<5; i++){
-            translate[i] -=0.01;
+            translate[i] -=(0.01+speedUpFactor);
         }
         //Azuriranje koordinata cikice
         pos.YDonjaKoordinata+= y_pos;
@@ -42,8 +42,8 @@ void on_timer (int value){
 
 
         for(int i=0; i<10; i++){
-            platformPos[i].YDonjeStrane+=0.01;
-            platformPos[i].YGornjeStrane+=0.01;
+            platformPos[i].YDonjeStrane+=(0.01+speedUpFactor);
+            platformPos[i].YGornjeStrane+=(0.01+speedUpFactor);
         }
         
 
@@ -102,7 +102,6 @@ void on_timer (int value){
     }
 }
 
-
 void onPlatformCheck(void){
 
     if(gameActive && !gameOver){
@@ -129,15 +128,15 @@ void onPlatformCheck(void){
         }
         if (!biloKolizije)
             onPlatform=0;
-        printf("%d\n", onPlatform);
     }
 }
 
-/*
-                printf("Pozicija covecljka:\n");
-                printf("pozicija leve noge:%f\n pozicija desne noge:%f\n pozicija ygornje:%f pozicija ydonje:%f\n",pos.XKoordinataLeveNoge,pos.XKoordinataDesneNoge,pos.YGornjaKoordinata,pos.YDonjaKoordinata);
-                printf("Pozicija x leve ivice: %f\n",platformPos[i].XLeveIvice);
-                printf("Pozicija x desne ivice: %f\n",platformPos[i].XdesneIvice);
-                printf("Pozicija y gornje ivice: %f\n",platformPos[i].YGornjeStrane);
-                printf("Pozicija y donje ivice: %f\n",platformPos[i].YDonjeStrane);
-*/
+void on_timerSpeedUp(int value){
+    if(value != TIMER_ID1)
+        return;
+
+    if(gameActive && !gameOver){
+        speedUpFactor+=0.005;
+        glutTimerFunc(TIMER_INTERVAL1, on_timerSpeedUp, TIMER_ID1);
+    }
+}

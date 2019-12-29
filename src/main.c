@@ -23,6 +23,7 @@ int main(int argc, char **argv)
     glutKeyboardFunc(onKeyboardMove);
     glutKeyboardUpFunc(onKeyboardMoveUp);
     glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
+    glutTimerFunc(TIMER_INTERVAL1, on_timerSpeedUp, TIMER_ID1);
     glutReshapeFunc(on_reshape);
     glutDisplayFunc(on_display);
 

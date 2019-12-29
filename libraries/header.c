@@ -12,8 +12,12 @@ int scale [10];
 int translateIndicator [5];
 double translate[5];
 int onPlatform;
+double speedUpFactor;
+int gameAcrivatedFirstTime;
 
 void initPosition(int i, int nivo){
+    int gameActivatedFirstTime =0;
+    speedUpFactor = 0;
     double yBase = nivo *2;
     double xDesno = (0.5*scale[i])/2;
     if(i%2 == 0)

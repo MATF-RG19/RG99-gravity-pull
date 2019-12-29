@@ -5,5 +5,7 @@
 
 void on_timer (int value);
 void onPlatformCheck(void);
+void on_timerSpeedUp(int value);
+
 
 #endif

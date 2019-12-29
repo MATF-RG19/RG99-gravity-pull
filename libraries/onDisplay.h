@@ -8,6 +8,7 @@
 #include "header.h"
 
 extern int window_width, window_height;
+extern char ispis[50];
 
 void on_display(void);
 void drawCaracter(void);
@@ -23,5 +24,6 @@ void drawPyramidBlockDown (void);
 int randomNumber(void);
 void drawFivePlatforms(void);
 void printMirko (void);
+static void renderStrokeString(int x, int y,int z,void* font, char *string);
 
 #endif

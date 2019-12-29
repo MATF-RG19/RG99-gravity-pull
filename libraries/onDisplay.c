@@ -5,9 +5,26 @@
 #include <math.h>
 #include "header.h"
 #include "onDisplay.h"
+#include <string.h>
+
+char ispis[50];
+char nazivIgre[50];
 
 int window_width, window_height;
 positionOfCharacter pos;
+static void renderStrokeString(int x, int y,int z,void* font, char *string)
+{
+    int len;
+    glDisable(GL_LIGHTING);
+    glTranslatef(x,y,z);
+    glScalef(0.03,0.03,10);
+    len = strlen(string);
+    for (int i = 0; i < len; i++)
+    {
+        glutStrokeCharacter(font, string[i]);
+    }
+}
+
 void on_display(void)
 {
 
@@ -36,24 +53,90 @@ void on_display(void)
     GLdouble ClipPlaneLeft [] = {1,0,0,2.5};
     GLdouble ClipPlaneRigh [] = {-1,0,0,4.5};
     //Ako treba ubaci cu jos jednu ravan ali za  sada nije potrebana
+    if(!gameAcrivatedFirstTime){
+        glClearColor(0,0,0,0);
+        glPushMatrix();
+            int x = -25;
+            int y = 12;
+            int z = 0;
+            glScalef(0.05,0.05,5);
+                glPushAttrib(GL_LINE_BIT);
+                    glLineWidth(4); //Postavljamo debljinu linije
+                    sprintf(ispis,"To start the game press 'g' or 'G'");
+                    glColor3f(1,0,0);
+                    renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,ispis);
+                glPopAttrib();
+        glPopMatrix();
+        glPushMatrix();
+             y = -2;
+             z = 0;
+            glScalef(0.05,0.05,5);
+                glPushAttrib(GL_LINE_BIT);
+                    glLineWidth(4); //Postavljamo debljinu linije
+                    sprintf(ispis,"To pause the game press 'p' or 'P'");
+                    glColor3f(1,0,0);
+                    renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,ispis);
+                glPopAttrib();
+        glPopMatrix();
+        glPushMatrix();
+             y = -12;
+             z = 0;
+            glScalef(0.05,0.05,5);
+                glPushAttrib(GL_LINE_BIT);
+                    glLineWidth(4); //Postavljamo debljinu linije
+                    sprintf(ispis,"To restart the game press 'r' or 'R'");
+                    glColor3f(1,0,0);
+                    renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,ispis);
+                glPopAttrib();
+        glPopMatrix();
+        glPushMatrix();
+            y = 35;
+            x = -12;
+            glScalef(0.05,0.05,5);
+            glPushAttrib(GL_LINE_BIT);
+                glLineWidth(4); //Postavljamo debljinu linije
+                sprintf(nazivIgre,"****Gravitiy Pull****");
+                 glColor3f(1,1,0);
+                renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,nazivIgre);
+            glPopAttrib();
+        glPopMatrix();
+    }
+    if(gameOver){
+        glClearColor(0,0,0,0);
+        glPushMatrix();
+            int x = 3;
+            int y = 12;
+            int z = 0;
+        glScalef(0.05,0.05,5);
+            glPushAttrib(GL_LINE_BIT);
+                glLineWidth(4); //Postavljamo debljinu linije
+                sprintf(ispis,"GAME OVER :(");
+                 glColor3f(1,0,0);
+                renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,ispis);
+            glPopAttrib();
+        glPopMatrix();
+    }
+    if(gameAcrivatedFirstTime && !gameOver){
+        glClearColor(0.61, 0.82, 1, 0);
+        drawPyramidBlockTop();
+        //drawPyramidBlockDown();
+        glPushMatrix();
+            glEnable (GL_CLIP_PLANE0);
+            glEnable (GL_CLIP_PLANE1);
+            glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
+            glClipPlane(GL_CLIP_PLANE1, ClipPlaneRigh);
 
-    drawPyramidBlockTop();
-    //drawPyramidBlockDown();
-    glPushMatrix();
-        glEnable (GL_CLIP_PLANE0);
-        glEnable (GL_CLIP_PLANE1);
-        glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
-        glClipPlane(GL_CLIP_PLANE1, ClipPlaneRigh);
+            drawFivePlatforms();
 
-        drawFivePlatforms();
-
-        glDisable(GL_CLIP_PLANE0);
-        glDisable(GL_CLIP_PLANE1);
-    glPopMatrix();
-    
-    drawCaracter();
+            glDisable(GL_CLIP_PLANE0);
+            glDisable(GL_CLIP_PLANE1);
+        glPopMatrix();
+        
+        drawCaracter();
+    }
     glutPostRedisplay();
     glutSwapBuffers();
+    
 }
 //Crtanje karaktera i inicializacija negovih pozicija
 void drawCaracter(void){
