@@ -8,7 +8,7 @@
 #include <string.h>
 #include "image.h"
 
-#define FILENAME0 "texture1.bmp"
+#define FILENAME0 "./../libraries/texture1.bmp"
 static GLuint names[1];
 
 char ispis[50];
@@ -138,6 +138,21 @@ void on_display(void)
         
         drawCaracter();
     }
+    /*Iz nekog razloga ovaj kvadrat mora da postoji inace mi tekstura potamni :D*/
+    glTranslatef(100,100,100);
+    glBindTexture(GL_TEXTURE_2D, names[0]);
+    glBegin(GL_QUADS);
+        glColor3f(1,1,1);
+        glTexCoord2f(0,0);
+        glVertex2f(0,0);
+        glTexCoord2f(0,1);
+        glVertex2f(0,1);
+        glTexCoord2f(1,1);
+        glVertex2f(1,1);
+        glTexCoord2f(1,0);
+        glVertex2f(1,0);
+    glEnd();
+    glBindTexture(GL_TEXTURE_2D, 0);
     glutPostRedisplay();
     glutSwapBuffers();
     
@@ -445,24 +460,36 @@ void pyramidR(void){
 glBindTexture(GL_TEXTURE_2D,names[0]);
 glBegin(GL_TRIANGLES);
     
-      glTexCoord2f(0,0);  
-      glColor3f(1,0,0);
+     
+      glTexCoord2f(0,1);
       glVertex3f( -0.0f, -1.0f, -0.0f);
+      glTexCoord2f(1,1);
       glVertex3f(1.0f, 1.0f, -1.0f);
+      glTexCoord2f(0.5,0.5);
       glVertex3f(-1.0f, 1.0f, -1.0f);
- 
+
+      glTexCoord2f(0,1);
       glVertex3f(-0.0f, -1.0f, -0.0f);
+      glTexCoord2f(1,1);
       glVertex3f(-1.0f, 1.0f, -1.0f);
+      glTexCoord2f(0.5,0.5);
       glVertex3f(-1.0f, 1.0f, 1.0f);
- 
+
+      glTexCoord2f(0,1);
       glVertex3f(-0.0f, -1.0f, -0.0f);
+      glTexCoord2f(1,1);
       glVertex3f(-1.0f, 1.0f, 1.0f);
+      glTexCoord2f(0.5,0.5);
       glVertex3f(1.0f, 1.0f, 1.0f);
- 
+      
+      glTexCoord2f(0,1);
       glVertex3f( -0.0f, -1.0f, -0.0f);
+      glTexCoord2f(1,1);
       glVertex3f(1.0f,1.0f,1.0f);
+      glTexCoord2f(0.5,0.5);
       glVertex3f(1.0f,1.0f, -1.0f);
    glEnd();
+   glBindTexture(GL_TEXTURE_2D,0);
 }
 
 void drawPyramidBlockDown(void){
@@ -489,6 +516,9 @@ void drawPyramidBlockDown(void){
 void init_texture(void){
     /* Objekat koji predstavlja teskturu ucitanu iz fajla. */
     Image * image;
+
+    /* Ukljucuje se testiranje z-koordinate piksela. */
+    glEnable(GL_DEPTH_TEST);
     /* Ukljucujemo opciju koriscenja tekstura. */
     glEnable(GL_TEXTURE_2D);
 

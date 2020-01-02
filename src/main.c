@@ -29,9 +29,11 @@ int main(int argc, char **argv)
 
     glClearColor(0.61, 0.82, 1, 0);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_TEXTURE_2D);
     glLineWidth(2);
 
     initialize();
+    init_texture();
 
     glutMainLoop();
 
