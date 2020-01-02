@@ -3,8 +3,8 @@ CC      = gcc
 LDLIBS  = -lglut -lGLU -lGL -lm
 CFLAGS  = -g -std=c99 -Wall -I/usr/X11R6/include -I/usr/pkg/include
 LDFLAGS = -L/usr/X11R6/lib -L/usr/pkg/lib
-$(PROGRAM): main.o onKeyboard.o onTimer.o onDisplay.o header.o
-	$(CC) $(LDFLAGS) -o $(PROGRAM) main.o onTimer.o onKeyboard.o onDisplay.o header.o $(LDLIBS)
+$(PROGRAM): main.o onKeyboard.o onTimer.o onDisplay.o header.o image.o
+	$(CC) $(LDFLAGS) -o $(PROGRAM) main.o onTimer.o onKeyboard.o onDisplay.o header.o image.o $(LDLIBS)
 	
 main.o: main.c
 	$(CC) -c $(LDFLAGS) -o main.o main.c $(LDLIBS)
@@ -20,6 +20,9 @@ onKeyboard.o: ./../libraries/onKeyboard.c
 
 header.o: ./../libraries/header.c
 	$(CC) -c $(LDFLAGS) -o header.o ./../libraries/header.c $(LDLIBS)
+
+image.o: ./../libraries/image.c
+	$(CC) -c $(LDFLAGS) -o image.o ./../libraries/image.c $(LDLIBS)
 
 .PHONY: clean dist
 

@@ -6,6 +6,10 @@
 #include "header.h"
 #include "onDisplay.h"
 #include <string.h>
+#include "image.h"
+
+#define FILENAME0 "texture1.bmp"
+static GLuint names[1];
 
 char ispis[50];
 char nazivIgre[50];
@@ -149,7 +153,7 @@ void drawCaracter(void){
 
     GLfloat light_diffuse[] = {1,1,0,1};
     GLfloat light_diffuse1[] = {1,0,0,1};
-    GLfloat light_diffuse3[] = {1,0.6,0.6,1};
+    GLfloat light_diffuse3[] = {0,0,0.8,1};
 
     glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
     glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse1);
@@ -438,8 +442,11 @@ void drawPyramidBlockTop(void){
 }
 
 void pyramidR(void){
+glBindTexture(GL_TEXTURE_2D,names[0]);
 glBegin(GL_TRIANGLES);
-
+    
+      glTexCoord2f(0,0);  
+      glColor3f(1,0,0);
       glVertex3f( -0.0f, -1.0f, -0.0f);
       glVertex3f(1.0f, 1.0f, -1.0f);
       glVertex3f(-1.0f, 1.0f, -1.0f);
@@ -477,6 +484,46 @@ void drawPyramidBlockDown(void){
             }
         glPopMatrix();
     glPopMatrix();
+}
+
+void init_texture(void){
+    /* Objekat koji predstavlja teskturu ucitanu iz fajla. */
+    Image * image;
+    /* Ukljucujemo opciju koriscenja tekstura. */
+    glEnable(GL_TEXTURE_2D);
+
+    glTexEnvf(GL_TEXTURE_ENV,
+              GL_TEXTURE_ENV_MODE,
+              GL_MODULATE);
+
+    /*
+        Ucitavamo sliku koja predstavlja teksturu
+    */
+    image = image_init(0, 0);
+
+    image_read(image, FILENAME0);
+
+    /* Generisu se identifikatori tekstura. */
+    glGenTextures(1, names);
+
+    glBindTexture(GL_TEXTURE_2D, names[0]);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D,
+                    GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB,
+                 image->width, image->height, 0,
+                 GL_RGB, GL_UNSIGNED_BYTE, image->pixels);
+    // Iskljucujemo teksturu 
+    glBindTexture(GL_TEXTURE_2D, 0);
+
+    //oslobadjamo image
+    image_done(image);
+
 }
 
 void printMirko(void){

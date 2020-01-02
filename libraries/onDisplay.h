@@ -25,5 +25,6 @@ int randomNumber(void);
 void drawFivePlatforms(void);
 void printMirko (void);
 static void renderStrokeString(int x, int y,int z,void* font, char *string);
+void init_texture(void);
 
 #endif

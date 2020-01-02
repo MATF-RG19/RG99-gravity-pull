@@ -109,7 +109,7 @@ void onPlatformCheck(void){
         int k =0;
         int biloKolizije=0;
         for (int i=0; i<5; i++){
-            if(pos.YDonjaKoordinata <= platformPos[2*i].YGornjeStrane && pos.YDonjaKoordinata>=platformPos[2*i].YDonjeStrane)
+            if(pos.YDonjaKoordinata <= platformPos[2*i].YGornjeStrane && pos.YDonjaKoordinata>=platformPos[2*i].YDonjeStrane+0.175)
             {
                 if((pos.XKoordinataLeveNoge >= platformPos[2*i].XLeveIvice && pos.XKoordinataLeveNoge <= platformPos[2*i].XdesneIvice) 
                         || (pos.XKoordinataDesneNoge<=platformPos[2*i+1].XdesneIvice && pos.XKoordinataDesneNoge>=platformPos[2*i+1].XLeveIvice)){
