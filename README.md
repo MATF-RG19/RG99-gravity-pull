@@ -1,5 +1,4 @@
 # :rocket: Gravity-pull :rocket:
-RG99-gravity-pull
 
 ### :pencil: Pravila igre:
 :one: Igra je koncipirana da igrac sto duze bude u mogucnosti da odoleva gravitaciji<br>
