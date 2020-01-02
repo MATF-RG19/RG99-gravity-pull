@@ -15,6 +15,7 @@ void on_timer (int value){
 
 
     if(gameActive && !gameOver){
+        animationParameter+=10;
 
         int vecyCopy;
         if(!onPlatform){
@@ -114,7 +115,7 @@ void onPlatformCheck(void){
                         || (pos.XKoordinataDesneNoge<=platformPos[2*i+1].XdesneIvice && pos.XKoordinataDesneNoge>=platformPos[2*i+1].XLeveIvice)){
                     onPlatform = 1;
                     biloKolizije=1;
-                
+                    /*Kod koji je sluzio za debagovanje mozda bude zatrebao :)
                     printf("Pera%d\n",i);
                     printf("Pozicija covecljka:\n");
                     printf("pozicija leve noge:%f\n pozicija desne noge:%f\n pozicija ygornje:%f pozicija ydonje:%f\n",pos.XKoordinataLeveNoge,pos.XKoordinataDesneNoge,pos.YGornjaKoordinata,pos.YDonjaKoordinata);
@@ -123,6 +124,7 @@ void onPlatformCheck(void){
                     printf("Pozicija y gornje ivice: %f\n",platformPos[2*i].YGornjeStrane);
                     printf("Pozicija y donje ivice: %f\n",platformPos[2*i].YDonjeStrane);
                     printf("*************************************************************\n");
+                    */
                 }
             }
         }

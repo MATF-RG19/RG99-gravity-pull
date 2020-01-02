@@ -144,54 +144,95 @@ void drawCaracter(void){
     pos.YDonjaKoordinata = -0.425;
     pos.XKoordinataLeveNoge = -0.08;
     pos.XKoordinataDesneNoge = 0.03;
-    glColor3f(0.2, 0.2, 1);
+
+    glEnable(GL_LIGHTING);
+
+    GLfloat light_diffuse[] = {1,1,0,1};
+    GLfloat light_diffuse1[] = {1,0,0,1};
+    GLfloat light_diffuse3[] = {1,0.6,0.6,1};
+
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT2, GL_DIFFUSE, light_diffuse1);
+    glLightfv(GL_LIGHT4, GL_DIFFUSE, light_diffuse3);
+
+
+    GLfloat  diffuse_coefs[] = {0.8,0.8,0,1};
+    GLfloat  diffuse_coefs1[] = {0.8,0,0,1};
+    GLfloat  diffuse_coefs3[] = {0.8,0.8,0.8,1};
+    GLfloat shine = 100;
+
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shine);
+
     glTranslatef(x_pos,y_pos, 0);
 
     //Iscrtavanje Tela
+    glEnable(GL_LIGHT2);
     glPushMatrix();
         glTranslatef(0,-0.05,0);
         glScalef(1,1.5,1);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,diffuse_coefs1);
         glutSolidCube(0.2);
     glPopMatrix();
+    glDisable(GL_LIGHT2);
 
     //Iscrtavanje glave;
+    glEnable(GL_LIGHT1);
     glPushMatrix();
-        glColor3f(0.2,0.8,0.5);
         glTranslatef(0,0.15,0);
+        glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,diffuse_coefs);
         glutSolidSphere(0.075,10,10);
     glPopMatrix();
-
+    glDisable(GL_LIGHT1);
+    
+    
     //Iscrtavanje nogu
+    GLfloat light_diffuse2[] = {0.4,0.2,0,1};
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse2);
+    GLfloat coefs_diffuse[] = {0.5,0.5,0,1};
+
+   
+    glDisable(GL_LIGHTING); 
     glPushMatrix();
-        glColor3f(0.6,0.7,0.8);
-        glTranslatef(0.075,-0.2875,0);
-        glScalef(0.181818,1,0.181818);
-        glutSolidCube(0.275);
-    glPopMatrix();
-        
-    glPushMatrix();
-        glColor3f(0.6,0.7,0.8);
-        glTranslatef(-0.055,-0.2875,0);
-        glScalef(0.181818,1,0.181818);
-        glutSolidCube(0.275);
-    glPopMatrix();
+        glColor3f(0.4,0.2,0.001);
+        glPushMatrix();
+            glTranslatef(0.075,-0.2875,0);
+            glScalef(0.181818,1,0.181818);
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,coefs_diffuse);
+            glutSolidCube(0.275);
+        glPopMatrix();
+
     
+        glPushMatrix();
+            glTranslatef(-0.055,-0.2875,0);
+            glScalef(0.181818,1,0.181818);
+            glutSolidCube(0.275);
+        glPopMatrix();
+    glPopMatrix();
+    glEnable(GL_LIGHTING);
+
+
     //Iscrtavanje ruku
+    glEnable(GL_LIGHT4);
     glPushMatrix();
-        glColor3f(0.9,0.6,0.7);
-        glTranslatef(0.1,-0.05,0);
-        glScalef(0.5,2,1);
-        glRotatef(45,0,1,0);
-        glutSolidCube(0.1);
+        glRotatef(animationParameter, 1,0,0);
+        glPushMatrix();
+            glTranslatef(0.1,-0.05,0);
+            glScalef(0.5,2,1);
+            glRotatef(45,0,1,0);
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_coefs3);
+            glutSolidCube(0.1);
+        glPopMatrix();
+        
+        glPushMatrix();
+            glTranslatef(-0.1,-0.05,0);
+            glScalef(0.5,2,1);
+            glRotatef(45,0,1,0);
+            glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, diffuse_coefs3);
+            glutSolidCube(0.1);
+        glPopMatrix();
     glPopMatrix();
-    
-    glPushMatrix();
-        glColor3f(0.9,0.6,0.7);
-        glTranslatef(-0.1,-0.05,0);
-        glScalef(0.5,2,1);
-        glRotatef(45,0,1,0);
-        glutSolidCube(0.1);
-    glPopMatrix();
+    glDisable(GL_LIGHT4);
+    glDisable(GL_LIGHTING);
 }
 //************************************************************************************************************
 //Ovaj deo koda se ne koristi vise bice obrisan u poslednjem komitu
@@ -214,8 +255,35 @@ void drawBlockArena(void){
 }
 //************************************************************************************************************
 void drawFivePlatforms(void){
+    glEnable(GL_LIGHTING);
 
-    glColor3f(1,1,1);
+    glEnable(GL_LIGHT0);
+
+    GLfloat light_ambient[] = {1,1,1,1};
+
+    GLfloat ambient_coefs[] = {0.4,0.9,1, 1};
+
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    
+    GLfloat light_diffuse[] = {0.61,0.82,1,1};
+
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+
+    GLfloat  diffuse_coefs[] = {0.5,0.8,0.5,1};
+
+    GLfloat light_specular[] = {1,1,1,0};
+
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+
+    GLfloat specular_coefs[] ={1,0.5,0.5,1};
+    
+    GLfloat shine = 100;
+
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, ambient_coefs);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE,diffuse_coefs);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, specular_coefs);
+    glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shine);
+   
     //Prvi red platformi
     glPushMatrix();
         glTranslatef(-2.5,-translate[0],0);
@@ -280,7 +348,8 @@ void drawFivePlatforms(void){
         glScalef(scale[9],0.5,1.5);
         glutSolidCube(0.5);
     glPopMatrix();
-
+    glDisable(GL_LIGHT0);
+    glDisable(GL_LIGHTING);
 }
 
 //************************************************************************************************************
@@ -370,25 +439,19 @@ void drawPyramidBlockTop(void){
 
 void pyramidR(void){
 glBegin(GL_TRIANGLES);
-      glColor3f(1.0f, 0.0f, 0.0f);
+
       glVertex3f( -0.0f, -1.0f, -0.0f);
       glVertex3f(1.0f, 1.0f, -1.0f);
       glVertex3f(-1.0f, 1.0f, -1.0f);
  
-      
-      glColor3f(1.0f, 0.0f, 0.0f);
       glVertex3f(-0.0f, -1.0f, -0.0f);
       glVertex3f(-1.0f, 1.0f, -1.0f);
       glVertex3f(-1.0f, 1.0f, 1.0f);
  
-      
-      glColor3f(1.0f, 0.0f, 0.0f);
       glVertex3f(-0.0f, -1.0f, -0.0f);
       glVertex3f(-1.0f, 1.0f, 1.0f);
       glVertex3f(1.0f, 1.0f, 1.0f);
  
-     
-      glColor3f(1.0f,0.0f,0.0f);
       glVertex3f( -0.0f, -1.0f, -0.0f);
       glVertex3f(1.0f,1.0f,1.0f);
       glVertex3f(1.0f,1.0f, -1.0f);
@@ -415,7 +478,6 @@ void drawPyramidBlockDown(void){
         glPopMatrix();
     glPopMatrix();
 }
-
 
 void printMirko(void){
     printf("Skaliranja za platforme: \n");

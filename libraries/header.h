@@ -43,6 +43,7 @@ extern double speedUpFactor;
 extern int onPlatform;
 //extern int moveXDisable;
 extern int gameAcrivatedFirstTime;
+extern int animationParameter;;
 void initialize (void);
 void initPosition(int i, int nivo);
 #endif

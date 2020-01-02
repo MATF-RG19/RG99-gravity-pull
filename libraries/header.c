@@ -14,8 +14,12 @@ double translate[5];
 int onPlatform;
 double speedUpFactor;
 int gameAcrivatedFirstTime;
+int animationParameter;
+
 
 void initPosition(int i, int nivo){
+    int animationParameter=0;
+
     int gameActivatedFirstTime =0;
     speedUpFactor = 0;
     double yBase = nivo *2;
