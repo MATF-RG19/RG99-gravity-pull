@@ -13,6 +13,7 @@ static GLuint names[1];
 
 char ispis[50];
 char nazivIgre[50];
+char rezultat[50];
 
 int window_width, window_height;
 positionOfCharacter pos;
@@ -72,7 +73,8 @@ void on_display(void)
                 glPopAttrib();
         glPopMatrix();
         glPushMatrix();
-             y = -2;
+             y -= 10;
+             x-=2;
              z = 0;
             glScalef(0.05,0.05,5);
                 glPushAttrib(GL_LINE_BIT);
@@ -83,8 +85,9 @@ void on_display(void)
                 glPopAttrib();
         glPopMatrix();
         glPushMatrix();
-             y = -12;
+             y -= 10;
              z = 0;
+             x-=2;
             glScalef(0.05,0.05,5);
                 glPushAttrib(GL_LINE_BIT);
                     glLineWidth(4); //Postavljamo debljinu linije
@@ -94,8 +97,8 @@ void on_display(void)
                 glPopAttrib();
         glPopMatrix();
         glPushMatrix();
-            y = 35;
-            x = -12;
+            y = 28;
+            x = -10;
             glScalef(0.05,0.05,5);
             glPushAttrib(GL_LINE_BIT);
                 glLineWidth(4); //Postavljamo debljinu linije
@@ -117,6 +120,16 @@ void on_display(void)
                 sprintf(ispis,"GAME OVER :(");
                  glColor3f(1,0,0);
                 renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,ispis);
+            glPopAttrib();
+        glPopMatrix();
+        glScalef(0.05,0.05,5);
+        y-=8;
+        x-=8;
+            glPushAttrib(GL_LINE_BIT);
+                glLineWidth(4); //Postavljamo debljinu linije
+                sprintf(rezultat,"Your score is %d",animationParameter/100);
+                 glColor3f(0,0,1);
+                renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,rezultat);
             glPopAttrib();
         glPopMatrix();
     }
