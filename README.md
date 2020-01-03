@@ -28,7 +28,8 @@ koja ga vuce na dole,a da ga ujedno ne pojede vatra na vrhu<br>
 ### :key: Instalacija i pokretanje:
 :black_circle: Pozicionirati se u direktorijum src<br>
 :black_circle: Kompilirati pomocu Makefile sa komandom 'make'<br>
+:black_circle:Pokrenuti igricu komandom ./GravityPull<br>
 :black_circle: Pokrenuti igru sa tasterom g ili G<br>
 
 ### :warning: Nampomena:
-:black_circle: za teksture preuzeta od asistenta Rastka Đorđevića http://www.matf.bg.ac.rs/p/-rastko-djordjevic (u libraries direktorijumu bibloteka image.h)
+:black_circle: za teksturu preuzeta biblioteka od asistenta Rastka Đorđevića http://www.matf.bg.ac.rs/p/-rastko-djordjevic (u libraries direktorijumu bibloteka image.h)
