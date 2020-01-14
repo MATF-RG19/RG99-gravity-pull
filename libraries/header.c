@@ -2,6 +2,11 @@
 #include "onDisplay.h"
 #include <time.h>
 
+/*
+    Ovde se nalaze definicije funkcija iz istoimenog .h fajla i vrsi se inicializacija
+    svih bitnih promenljivih. Cemu inicializovane promenljive sluze pise u .h fajlu.
+*/
+
 move vec;
 float x_pos, y_pos;
 float y_pom_filed;
@@ -16,9 +21,9 @@ double speedUpFactor;
 int gameAcrivatedFirstTime;
 int animationParameter;
 
-
+//Inicializacija pozicija platformi
 void initPosition(int i, int nivo){
-    int animationParameter=0;
+    animationParameter=0;
 
     int gameActivatedFirstTime =0;
     speedUpFactor = 0;
@@ -41,6 +46,8 @@ void initPosition(int i, int nivo){
     platformPos[i].YGornjeStrane = -yBase + 0.125;
 }
 
+
+//Inicializacija ostalih promenljivih
 void initialize (void){
     x_pos=0;
     y_pos=0;

@@ -3,8 +3,15 @@
 
 #include "header.h"
 
+/*
+    Ovde se nalaze deklaracije timer funckija koje upotrebljavamo u programu
+*/
+
+//Glavna timer funkcija
 void on_timer (int value);
+//Funkcija za detekciju kolizije
 void onPlatformCheck(void);
+//Timer za ubrzavanje kretanja platformi
 void on_timerSpeedUp(int value);
 
 

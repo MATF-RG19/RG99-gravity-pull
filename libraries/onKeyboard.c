@@ -7,12 +7,20 @@
 #include "header.h"
 #include "onTimer.h"
 
+
+/*
+    Ovde se nalaze definicje funkcije iz istoimenog .h fajla
+*/
+
+//U ovoj funkciji odredjujemo nacin ponasanja pri pritisku odredjenih tastera
 void onKeyboardMove(unsigned char key, int x, int y){
 	
     switch (key) {
+        //Pritiskom ovog tastera izlazimo iz igre
         case 27:
             exit(0);
             break;
+        //Pritiskom ovog tastera igra se aktivira    
         case 'g':
         case 'G':
         if(!gameActive){
@@ -22,6 +30,7 @@ void onKeyboardMove(unsigned char key, int x, int y){
         }
             break;
 
+        //Pritiskom ovog tastera igra se pauzira
         case 'p':
         case 'P':
             gameActive = 0;
@@ -29,11 +38,13 @@ void onKeyboardMove(unsigned char key, int x, int y){
         case 'r':
         case 'R':
             initialize();
+            glutTimerFunc(TIMER_INTERVAL1, on_timerSpeedUp, TIMER_ID1);
             break;
 
+        //Pritiskom ostalih karaktera se definise kretanje glavnog cikice na ekranu
         case 'w':
         if(onPlatform){
-            vec.y=4;
+            vec.y=4+speedUpFactor*100;
             onPlatform = 0;
         }
             break;
@@ -56,7 +67,7 @@ void onKeyboardMove(unsigned char key, int x, int y){
                     vec.x+=1;
             break;
     }
-
+   //Forsiramo iscrtavanje ekrana
    glutPostRedisplay();
 }
 
@@ -80,5 +91,6 @@ void onKeyboardMoveUp(unsigned char key, int x,int y){
             break;
     }
 
+    //Forsiramo iscrtavanje ekrana
     glutPostRedisplay();
 }

@@ -3,6 +3,10 @@
 #include <stdio.h>
 #include "image.h"
 
+/*
+  PREUZETO OD ASITSTENTA RASTKA DJORDJEVICA
+*/
+
 Image *image_init(int width, int height) {
 
   Image *image;

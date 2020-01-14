@@ -8,28 +8,46 @@
 #include <string.h>
 #include "image.h"
 
+/*
+    Ovde se nalaze definicije funckija koje su bitne za iscrtavanje i ispis na sceni
+*/
+//Putanja i ime do fajla gde se nalazi tekstura
 #define FILENAME0 "./../libraries/texture1.bmp"
+
 static GLuint names[1];
 
+//Promenljiva gde se smesta sta se ispisuje na ekran
 char ispis[50];
+//Promenljiva gde se ispisuje natpis same igre
 char nazivIgre[50];
+//Promenljive gde se ispisuje rezultat koji je ostvario igrac
 char rezultat[50];
 
+//Promneljive koje opisuju velicinu ekrana
 int window_width, window_height;
+
+//Promenljiva koja opisuje poziciju glavnog kraktera na sceni
 positionOfCharacter pos;
+
+//Funkcija za prikaz teksta
 static void renderStrokeString(int x, int y,int z,void* font, char *string)
 {
     int len;
-    glDisable(GL_LIGHTING);
+    //Translacija teksta na zeljenu poziciju
     glTranslatef(x,y,z);
+    //Skaliranje teksta
     glScalef(0.03,0.03,10);
+    //Dodela vrednosti promenljivoj za duzinu reci za ispis
     len = strlen(string);
     for (int i = 0; i < len; i++)
     {
+        //Funkcija koja definise font i slovo
         glutStrokeCharacter(font, string[i]);
     }
 }
 
+
+// Glavna funkcija za iscrtavanje na ekranu
 void on_display(void)
 {
 
@@ -46,7 +64,7 @@ void on_display(void)
             window_width/(float)window_height,
             1, 5);
 
-    /* Podesava se tacka pogleda. */
+    // Podesava se tacka pogleda.
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     gluLookAt(
@@ -55,12 +73,15 @@ void on_display(void)
             0, 1, 0
         );
 
+    //Nmestaju se koordinate dve ravni odsecanja
     GLdouble ClipPlaneLeft [] = {1,0,0,2.5};
     GLdouble ClipPlaneRigh [] = {-1,0,0,4.5};
-    //Ako treba ubaci cu jos jednu ravan ali za  sada nije potrebana
+
+    //Ovde se vrsi ispis teksta za ulazni ekran u igricu
     if(!gameAcrivatedFirstTime){
         glClearColor(0,0,0,0);
         glPushMatrix();
+            //Koordinate koje opisujuju poziciju teksta na ekranu
             int x = -25;
             int y = 12;
             int z = 0;
@@ -108,6 +129,8 @@ void on_display(void)
             glPopAttrib();
         glPopMatrix();
     }
+
+    //Ispis teksta kada se igra zavrsi
     if(gameOver){
         glClearColor(0,0,0,0);
         glPushMatrix();
@@ -133,11 +156,14 @@ void on_display(void)
             glPopAttrib();
         glPopMatrix();
     }
+    //Iscrtavanje svih delova scene kada je igra aktivna
     if(gameAcrivatedFirstTime && !gameOver){
+        
         glClearColor(0.61, 0.82, 1, 0);
         drawPyramidBlockTop();
-        //drawPyramidBlockDown();
+        displayScoore();
         glPushMatrix();
+        //Podesavanje ravni odsecanja
             glEnable (GL_CLIP_PLANE0);
             glEnable (GL_CLIP_PLANE1);
             glClipPlane(GL_CLIP_PLANE0, ClipPlaneLeft);
@@ -151,7 +177,6 @@ void on_display(void)
         
         drawCaracter();
     }
-    /*Iz nekog razloga ovaj kvadrat mora da postoji inace mi tekstura potamni :D*/
     glTranslatef(100,100,100);
     glBindTexture(GL_TEXTURE_2D, names[0]);
     glBegin(GL_QUADS);
@@ -170,7 +195,8 @@ void on_display(void)
     glutSwapBuffers();
     
 }
-//Crtanje karaktera i inicializacija negovih pozicija
+
+//Crtanje karaktera i inicializacija njegovih pozicija i podesavanje osvetljenja
 void drawCaracter(void){
     pos.YGornjaKoordinata = 0.3;
     pos.YDonjaKoordinata = -0.425;
@@ -222,7 +248,6 @@ void drawCaracter(void){
     glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse2);
     GLfloat coefs_diffuse[] = {0.5,0.5,0,1};
 
-   
     glDisable(GL_LIGHTING); 
     glPushMatrix();
         glColor3f(0.4,0.2,0.001);
@@ -266,26 +291,8 @@ void drawCaracter(void){
     glDisable(GL_LIGHT4);
     glDisable(GL_LIGHTING);
 }
-//************************************************************************************************************
-//Ovaj deo koda se ne koristi vise bice obrisan u poslednjem komitu
-int randomNumber(void){
-    int x = 1;
-    int y = 10;
 
-    srand(time(0));
-
-    return rand()%(y-x+1) + x;
-}
-
-void drawBlockArena(void){
-    int k = 0;
-    printf("%d \n",randomNumber());
-    for(int i=0; i<10; i++){
-        drawArena(k);
-        k=k+2;
-    }
-}
-//************************************************************************************************************
+//Funkcija za iscrtavanje platformi i podesavanje osvetljena platformi
 void drawFivePlatforms(void){
     glEnable(GL_LIGHTING);
 
@@ -384,25 +391,7 @@ void drawFivePlatforms(void){
     glDisable(GL_LIGHTING);
 }
 
-//************************************************************************************************************
-//Ovaj deo koda se vise ne koristi bice obrisan ako ne bude trebao u poslednjem komitu
-void drawArena(int k){
-    glColor3f(0.5,0.5,0.5);
-    glPushMatrix();
-        glTranslatef(3.5,-k,0);
-        glScalef(3,0.5,1.5);
-        glutSolidCube(0.5);
-    glPopMatrix();
-    
-    glPushMatrix();
-        glTranslatef(-0.5,-k,0);
-        glScalef(3,0.5,1.5);
-        glutSolidCube(0.5);
-    glPopMatrix();
-}
-// ************************************************************************************************************
-
-//Ne koristi se bas ali neka stoji mozda bude zatreabalo
+//Funkcija u kojoj se iscrtava piramida
 void pyramid(void)
 {
 glBegin(GL_TRIANGLES);
@@ -448,7 +437,7 @@ void drawPyramid(int ind){
     }
     
 }
-
+// Ovde se iscrtava red piramida koji se nalazi na vrhu ekrana
 void drawPyramidBlockTop(void){
     glPushMatrix();
         glTranslatef(0,2.055,0.5);
@@ -468,7 +457,7 @@ void drawPyramidBlockTop(void){
         glPopMatrix();
     glPopMatrix();
 }
-
+//Iscrtavanje okrenute piramide
 void pyramidR(void){
 glBindTexture(GL_TEXTURE_2D,names[0]);
 glBegin(GL_TRIANGLES);
@@ -505,6 +494,7 @@ glBegin(GL_TRIANGLES);
    glBindTexture(GL_TEXTURE_2D,0);
 }
 
+//Iscrtavanje donjeg reda piramida mozda se ne koristi :)
 void drawPyramidBlockDown(void){
     glPushMatrix();
         glTranslatef(0,-1.055,0.5);
@@ -526,6 +516,7 @@ void drawPyramidBlockDown(void){
     glPopMatrix();
 }
 
+//Funkcija za inicializaciju teksture
 void init_texture(void){
     /* Objekat koji predstavlja teskturu ucitanu iz fajla. */
     Image * image;
@@ -569,6 +560,7 @@ void init_texture(void){
 
 }
 
+//Fuunckija koja sluzi za debagovanje
 void printMirko(void){
     printf("Skaliranja za platforme: \n");
     for(int i=0; i<10;  i++){
@@ -582,4 +574,21 @@ void printMirko(void){
         printf("Pozicija y gornje ivice: %f\n",platformPos[j].YGornjeStrane);
         printf("Pozicija y donje ivice: %f\n",platformPos[j].YDonjeStrane);
     }
+}
+//Funkcija za ispis rezultata u toku igre
+void displayScoore(void){
+        glPushMatrix();
+            //Koordinate koje opisujuju poziciju teksta na ekranu
+            int x = -55;
+            int y = 25;
+            int z = 0;
+            glTranslatef(0,0, -1.5);
+            glScalef(0.05,0.05,5);
+                glPushAttrib(GL_LINE_BIT);
+                    glLineWidth(4); //Postavljamo debljinu linije
+                    sprintf(rezultat,"SCOORE: %d", animationParameter/100);
+                    glColor3f(0,0,1);
+                    renderStrokeString(x,y,z,GLUT_STROKE_MONO_ROMAN,rezultat);
+                glPopAttrib();
+        glPopMatrix();
 }

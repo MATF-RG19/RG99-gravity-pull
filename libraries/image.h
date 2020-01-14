@@ -1,4 +1,7 @@
 /*
+  PREUZETO OD ASITSTENTA RASTKA DJORDJEVICA
+*/
+/*
  * Dve strukture koje opisuju strukturu dva zaglavlja
  * kojima pocinje svaka slika u bmp formatu.
  */

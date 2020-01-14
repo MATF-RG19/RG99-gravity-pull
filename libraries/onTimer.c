@@ -8,12 +8,15 @@
 #include "onDisplay.h"
 
 
+/*
+    Ovde se nalaze definicije svih timer funkcija iz istoimenog .h fajla.
+*/
+
+//Glavna timer funkcija
 void on_timer (int value){
     if(value != TIMER_ID)
         return;
     
-
-
     if(gameActive && !gameOver){
         animationParameter+=10;
 
@@ -29,7 +32,10 @@ void on_timer (int value){
             vec.y+=3;
 
         x_pos +=vec.x*0.04;
-        y_pos +=vec.y*(0.01+speedUpFactor);
+        if (onPlatform)
+            y_pos +=vec.y*(0.01+speedUpFactor);
+        else 
+            y_pos +=vec.y*(0.01);
 
         //Pomeranje platformi
         for (int i =0; i<5; i++){
@@ -41,27 +47,26 @@ void on_timer (int value){
         pos.XKoordinataLeveNoge+=x_pos;
         pos.XKoordinataDesneNoge+=x_pos;
 
-
+        //Azuriranje pozicija paltfromi
         for(int i=0; i<10; i++){
             platformPos[i].YDonjeStrane+=(0.01+speedUpFactor);
             platformPos[i].YGornjeStrane+=(0.01+speedUpFactor);
         }
         
-
-        //printMirko();
-
-        //printf("%f %f\n",pos.XKoordinataDesneNoge,pos.XKoordinataLeveNoge);
+        //Kada igrac udari u gornji deo ekrana
         if(pos.YGornjaKoordinata>=2.05){
             gameOver = 1;
             printf("Poginuo si :)\n");
         }
 
+        //Ovo se desi kada igrac ode previse ispod
         if(pos.YGornjaKoordinata<=-3.1){
             gameOver = 1;
             x_pos=-100;
             y_pos=-100;
         }
 
+        //Azuriranje koordianta platformi
         for(int i=0; i<5; i++){
             if(platformPos[2*i].YDonjeStrane>2.25){
 
@@ -95,14 +100,16 @@ void on_timer (int value){
 
             }
         }
-
-        //printf("%f %f\n",pos.YDonjaKoordinata, pos.YGornjaKoordinata);
+        //Pozva se funkcija koja proverava da li je igrac na platformi
         onPlatformCheck();
+        //Ponovnoo iscrtavanje se formisra
         glutPostRedisplay();
         glutTimerFunc(TIMER_INTERVAL, on_timer, TIMER_ID);
     }
 }
 
+
+//Funkcija koja detektuje koliziju sa platvormom
 void onPlatformCheck(void){
 
     if(gameActive && !gameOver){
@@ -115,6 +122,8 @@ void onPlatformCheck(void){
                         || (pos.XKoordinataDesneNoge<=platformPos[2*i+1].XdesneIvice && pos.XKoordinataDesneNoge>=platformPos[2*i+1].XLeveIvice)){
                     onPlatform = 1;
                     biloKolizije=1;
+
+                    //Ovo moze da stoji cisto da se vidi kako se brojevi lepo menjaju :D
                     /*Kod koji je sluzio za debagovanje mozda bude zatrebao :)
                     printf("Pera%d\n",i);
                     printf("Pozicija covecljka:\n");
@@ -132,7 +141,7 @@ void onPlatformCheck(void){
             onPlatform=0;
     }
 }
-
+// Funkcija timer koja se poziva
 void on_timerSpeedUp(int value){
     if(value != TIMER_ID1)
         return;
